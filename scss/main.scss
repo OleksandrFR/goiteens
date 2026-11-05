@@ -1,0 +1,1120 @@
+// ============================================================
+// main.scss — база + три рівні ДЗ
+// Крім цього файлу стилі не редагуються: усе, що потрапляє
+// у css/main.css, генерується компіляцією SCSS.
+// ============================================================
+@use "variables" as *;
+@use "mixins" as *;
+
+// ============================================================
+// Дизайн-токени кольорів (CSS custom properties)
+// ============================================================
+:root {
+  --c-bg: #f4f6fb;
+  --c-surface: #ffffff;
+  --c-surface-alt: #f8f9fd;
+  --c-text: #14161f;
+  --c-muted: #5f6b7d;
+  --c-border: #e4e8f0;
+  --c-accent: #7c5cf4;
+  --c-accent-strong: #6644ef;
+  --c-accent-soft: #f0ecfe;
+  --c-gold: #d97a06;
+  --c-green: #17a35c;
+}
+
+// Темна тема турнірів (рівні 1 і 3)
+.theme-dark {
+  --c-bg: #0a0f1e;
+  --c-surface: #121a2f;
+  --c-surface-alt: #182242;
+  --c-text: #eaf0fb;
+  --c-muted: #93a1c0;
+  --c-border: rgba(148, 163, 196, 0.16);
+  --c-accent: #8b5cf6;
+  --c-accent-strong: #7c3aed;
+  --c-accent-soft: rgba(139, 92, 246, 0.14);
+  --c-gold: #fbbf24;
+  --c-green: #2dd4a7;
+}
+
+// ============================================================
+// БАЗА
+// ============================================================
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: $font-main;
+  color: var(--c-text);
+  background-color: var(--c-bg);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+// М'яке світіння фону для темної теми
+body.theme-dark {
+  background-image:
+    radial-gradient(600px 400px at 85% -10%, rgba(139, 92, 246, 0.16), transparent),
+    radial-gradient(500px 350px at -10% 30%, rgba(45, 212, 167, 0.07), transparent);
+  background-attachment: fixed;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+.page {
+  max-width: $container-max;
+  margin: 0 auto;
+  padding: $space-xl $space-md $space-xxl;
+
+  @include media-min($bp-wide) {
+    padding: $space-xl $space-xl $space-xxl;
+  }
+}
+
+.page-title {
+  margin: 0 0 $space-lg;
+  font-size: 24px;
+  letter-spacing: -0.02em;
+}
+
+.section {
+  margin-bottom: $space-xl * 2;
+
+  &__heading {
+    margin: 0 0 $space-lg;
+    font-size: 22px;
+    letter-spacing: -0.02em;
+  }
+}
+
+// === Загальна кнопка ===
+.btn {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 48px;
+  padding: $space-md $space-lg;
+
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+
+  color: #ffffff;
+  background: linear-gradient(135deg, var(--c-accent), var(--c-accent-strong));
+  border: none;
+  border-radius: $radius;
+  text-decoration: none;
+
+  transition: transform 150ms, box-shadow 200ms, filter 200ms;
+
+  &:hover {
+    filter: brightness(1.08);
+    box-shadow: 0 8px 22px rgba(124, 92, 244, 0.35);
+  }
+
+  &:active {
+    transform: translateY(1px);
+    box-shadow: none;
+  }
+
+  &:focus-visible {
+    outline: 3px solid var(--c-gold);
+    outline-offset: 3px;
+  }
+}
+
+// Привид-кнопка (контурна)
+.btn--ghost {
+  color: var(--c-accent);
+  background: transparent;
+  box-shadow: inset 0 0 0 2px var(--c-accent);
+
+  &:hover {
+    color: #ffffff;
+    background: var(--c-accent);
+    filter: none;
+    box-shadow: 0 8px 22px rgba(124, 92, 244, 0.3);
+  }
+}
+
+// Плашка-чип спільна для всіх сторінок
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+
+  padding: 6px 12px;
+
+  font-size: 12px;
+  font-weight: 700;
+
+  color: var(--c-accent);
+  background: var(--c-accent-soft);
+  border-radius: 999px;
+}
+
+// ============================================================
+// РІВЕНЬ 1. Адаптивна картка турніру
+// ============================================================
+
+.event-card {
+  display: flex;
+  flex-direction: column;
+  max-width: 440px;
+
+  margin: 0 auto;
+  overflow: hidden;
+
+  background-color: var(--c-surface);
+  border: 1px solid var(--c-border);
+  border-radius: $radius-lg;
+  box-shadow: $shadow-card-dark;
+
+  transition: transform 200ms, box-shadow 200ms;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: $shadow-card-dark-hover;
+  }
+
+  // Зображення з чипом-датою поверх
+  &__media {
+    position: relative;
+
+    img {
+      width: 100%;
+      height: 210px;
+      object-fit: cover;
+    }
+
+    // Градієнт, щоб низ зображення «зростався» з карткою
+    &::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, transparent 55%, rgba(10, 15, 30, 0.75));
+      pointer-events: none;
+    }
+  }
+
+  &__chip {
+    position: absolute;
+    z-index: 1;
+    top: $space-md;
+    left: $space-md;
+
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+
+    padding: 6px 12px;
+
+    font-size: 12px;
+    font-weight: 700;
+    color: #ffffff;
+
+    background: rgba(10, 15, 30, 0.55);
+    backdrop-filter: blur(6px);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 999px;
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    gap: $space-md;
+
+    padding: $space-lg;
+  }
+
+  // Маленький надзаголовок
+  &__eyebrow {
+    margin: 0;
+
+    font-size: 12px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--c-accent);
+  }
+
+  &__title {
+    margin: -$space-sm 0 0;
+    font-size: 24px;
+    line-height: 1.25;
+    letter-spacing: -0.02em;
+  }
+
+  &__meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: $space-md $space-lg;
+
+    margin: 0;
+    font-size: 14px;
+    color: var(--c-muted);
+
+    span {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+
+      svg {
+        flex: none;
+        color: var(--c-accent);
+      }
+    }
+  }
+
+  &__desc {
+    margin: 0;
+    font-size: 15px;
+    color: var(--c-muted);
+  }
+
+  &__place {
+    margin: 0;
+
+    padding: $space-md;
+
+    font-size: 14px;
+    color: var(--c-muted);
+
+    background: var(--c-surface-alt);
+    border: 1px dashed var(--c-border);
+    border-radius: $radius;
+
+    strong {
+      color: var(--c-text);
+    }
+  }
+
+  // Мобільний: кнопка на всю ширину
+  &__btn {
+    width: 100%;
+  }
+
+  // Планшет: зображення зліва, контент справа
+  @include media-min($bp-tablet) {
+    flex-direction: row;
+    max-width: none;
+
+    &__media {
+      align-self: stretch;
+      flex: 0 0 42%;
+
+      img {
+        height: 100%;
+        min-height: 260px;
+      }
+    }
+
+    &__content {
+      padding: $space-xl;
+    }
+
+    &__btn {
+      align-self: flex-start;
+      width: auto;
+    }
+  }
+}
+
+// ============================================================
+// РІВЕНЬ 2. Каталог курсів (світла тема)
+// ============================================================
+
+// --- Топбар ---
+.topbar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: $space-md;
+
+  padding: $space-md $space-lg;
+
+  margin: 0 0 $space-lg;
+
+  background-color: var(--c-surface);
+  border: 1px solid var(--c-border);
+  border-radius: $radius;
+  box-shadow: $shadow-card;
+
+  &__logo {
+    display: flex;
+    align-items: center;
+    gap: $space-sm;
+
+    margin: 0;
+    font-size: 18px;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+  }
+
+  // Квадрат-плитка логотипа з градієнтом
+  &__logo-mark {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 34px;
+    height: 34px;
+
+    font-size: 16px;
+    color: #ffffff;
+
+    background: linear-gradient(135deg, var(--c-accent), var(--c-accent-strong));
+    border-radius: 10px;
+  }
+
+  &__nav {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: $space-md;
+
+    margin-top: $space-sm;
+  }
+
+  &__link {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--c-muted);
+    text-decoration: none;
+
+    transition: color 200ms;
+
+    &:hover {
+      color: var(--c-accent);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--c-accent);
+      outline-offset: 2px;
+    }
+  }
+
+  // Планшет: лого зліва, навігація в ряд справа
+  @include media-min($bp-tablet) {
+    flex-direction: row;
+    justify-content: space-between;
+
+    &__nav {
+      flex-direction: row;
+      gap: $space-lg;
+      margin: 0;
+    }
+  }
+}
+
+// --- Герой-смуга каталогу ---
+.catalog-hero {
+  padding: $space-lg $space-lg $space-xl;
+
+  margin: 0 0 $space-lg;
+
+  background:
+    radial-gradient(420px 200px at 90% 0%, rgba(124, 92, 244, 0.14), transparent),
+    linear-gradient(180deg, var(--c-surface), var(--c-surface-alt));
+
+  border: 1px solid var(--c-border);
+  border-radius: $radius-lg;
+
+  &__title {
+    margin: 0 0 $space-sm;
+    font-size: 30px;
+    letter-spacing: -0.02em;
+
+    // Анімація заголовка — один раз при завантаженні сторінки
+    animation: hero-in 600ms cubic-bezier(0.2, 0.7, 0.3, 1) both;
+  }
+
+  &__text {
+    margin: 0;
+    max-width: 52ch;
+
+    color: var(--c-muted);
+  }
+}
+
+@keyframes hero-in {
+  from {
+    opacity: 0;
+    transform: translateY(-14px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// --- Сітка каталогу ---
+.catalog {
+  display: grid;
+  gap: $space-lg;
+  grid-template-columns: 1fr;
+
+  @include media-min($bp-tablet) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @include media-min($bp-desktop) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+// --- Картка курсу ---
+.course-card {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+
+  background-color: var(--c-surface);
+  border: 1px solid var(--c-border);
+  border-radius: $radius-lg;
+  box-shadow: $shadow-card;
+
+  transition: transform 200ms, box-shadow 200ms;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 34px rgba(15, 23, 42, 0.12);
+  }
+
+  &__media {
+    position: relative;
+
+    img {
+      width: 100%;
+      height: 170px;
+      object-fit: cover;
+    }
+  }
+
+  // Плашка «Популярний» на зображенні
+  &__badge {
+    position: absolute;
+    top: $space-md;
+    left: $space-md;
+
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+
+    padding: 6px 12px;
+
+    font-size: 12px;
+    font-weight: 800;
+
+    color: #ffffff;
+    background: linear-gradient(135deg, #f59e0b, var(--c-gold));
+    border-radius: 999px;
+    box-shadow: 0 4px 14px rgba(217, 122, 6, 0.4);
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    gap: $space-md;
+
+    padding: $space-lg;
+    flex-grow: 1;
+  }
+
+  &__name {
+    margin: 0;
+    font-size: 20px;
+    letter-spacing: -0.01em;
+  }
+
+  &__meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: $space-sm;
+  }
+
+  &__tag {
+    padding: 5px 11px;
+
+    font-size: 12px;
+    font-weight: 700;
+    border-radius: 999px;
+  }
+
+  &__tag--level {
+    color: var(--c-accent);
+    background: var(--c-accent-soft);
+  }
+
+  &__tag--time {
+    color: var(--c-green);
+    background: rgba(23, 163, 92, 0.12);
+  }
+
+  &__desc {
+    margin: 0;
+    font-size: 14px;
+    color: var(--c-muted);
+    flex-grow: 1;
+  }
+
+  &__btn {
+    width: 100%;
+
+    @include media-min($bp-tablet) {
+      width: auto;
+    }
+  }
+
+  // Популярна картка — рамка і трохи більший акцент (вимога)
+  &--popular {
+    border: 2px solid var(--c-gold);
+
+    .course-card__media img {
+      height: 200px;
+    }
+  }
+}
+
+// --- Додатково: auto-fit сітка ---
+.catalog--auto-fit {
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+}
+
+// ============================================================
+// РІВЕНЬ 3. Кіберспортивний турнір (темна тема)
+// ============================================================
+
+// --- Хедер ---
+.tour-header {
+  display: flex;
+  flex-direction: column;
+  gap: $space-md;
+
+  padding: $space-md $space-lg;
+
+  margin: 0 0 $space-lg;
+
+  background-color: var(--c-surface);
+  border: 1px solid var(--c-border);
+  border-radius: $radius;
+  box-shadow: $shadow-card-dark;
+
+  &__logo {
+    display: flex;
+    align-items: center;
+    gap: $space-sm;
+
+    margin: 0;
+    font-size: 17px;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+
+    @include media-min($bp-wide) {
+      font-size: 19px;
+    }
+
+    svg {
+      flex: none;
+      color: var(--c-accent);
+    }
+  }
+
+  &__nav {
+    display: flex;
+    flex-direction: column;
+    gap: $space-sm;
+
+    border-top: 1px solid var(--c-border);
+    padding-top: $space-md;
+
+    // На планшеті навігація у ряд, межа вже не потрібна
+    @include media-min($bp-tablet) {
+      flex-direction: row;
+      gap: $space-lg;
+      border-top: none;
+      padding: 0;
+    }
+  }
+
+  &__link {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--c-muted);
+    text-decoration: none;
+
+    transition: color 200ms;
+
+    &:hover {
+      color: var(--c-text);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--c-accent);
+      outline-offset: 2px;
+    }
+  }
+
+  &__btn {
+    width: 100%;
+  }
+
+  // Планшет: ряд — лого, навігація, кнопка
+  @include media-min($bp-tablet) {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: $space-lg;
+
+    &__btn {
+      width: auto;
+    }
+  }
+}
+
+// --- Промоблок ---
+.tour-promo {
+  display: grid;
+  gap: $space-lg;
+  grid-template-columns: 1fr;
+
+  padding: $space-lg;
+
+  background-color: var(--c-surface);
+  border: 1px solid var(--c-border);
+  border-radius: $radius-lg;
+  box-shadow: $shadow-card-dark;
+
+  margin-bottom: $space-lg;
+
+  &__media {
+    position: relative;
+
+    img {
+      width: 100%;
+      height: 230px;
+      object-fit: cover;
+      border-radius: $radius;
+    }
+
+    &::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(200deg, transparent 50%, rgba(10, 15, 30, 0.6));
+
+      border-radius: $radius;
+      pointer-events: none;
+    }
+  }
+
+  // LIVE-плашка
+  &__live {
+    position: absolute;
+    z-index: 1;
+    top: $space-md;
+    left: $space-md;
+
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+
+    padding: 6px 12px;
+
+    font-size: 12px;
+    font-weight: 800;
+    color: #ffffff;
+
+    background: rgba(220, 38, 38, 0.9);
+    border-radius: 999px;
+
+    i {
+      display: block;
+
+      width: 7px;
+      height: 7px;
+
+      background: #ffffff;
+      border-radius: 50%;
+      animation: pulse 1.4s infinite;
+    }
+  }
+
+  &__title {
+    margin: 0 0 $space-md;
+    font-size: 28px;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+
+    @include media-min($bp-wide) {
+      font-size: 36px;
+    }
+  }
+
+  // Градієнтний акцент у заголовку
+  &__title em {
+    font-style: normal;
+    background: linear-gradient(90deg, var(--c-accent), var(--c-green));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  &__text {
+    margin: 0 0 $space-lg;
+    color: var(--c-muted);
+  }
+
+  &__chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: $space-sm;
+
+    margin-bottom: $space-lg;
+  }
+
+  // Планшет: дві колонки (вимога)
+  @include media-min($bp-tablet) {
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+
+    &__media {
+      align-self: stretch;
+
+      img {
+        height: 100%;
+        min-height: 280px;
+      }
+
+      &::after {
+        border-radius: $radius;
+      }
+    }
+  }
+}
+
+@keyframes pulse {
+  50% {
+    opacity: 0.35;
+  }
+}
+
+// --- Статистика ---
+.tour-stats {
+  display: grid;
+  gap: $space-md;
+  grid-template-columns: 1fr;
+
+  @include media-min($bp-tablet) {
+    grid-template-columns: repeat(4, 1fr);
+    gap: $space-lg;
+  }
+}
+
+.stats-card {
+  padding: $space-lg;
+
+  overflow: hidden;
+
+  background-color: var(--c-surface);
+  border: 1px solid var(--c-border);
+  border-radius: $radius;
+  box-shadow: $shadow-card-dark;
+  text-align: center;
+
+  // Від планшета просторіші + акцентна верхня смуга
+  @include media-min($bp-tablet) {
+    padding: $space-xl $space-lg;
+
+    background-image: linear-gradient(180deg, rgba(139, 92, 246, 0.08), transparent 40%);
+  }
+
+  &__number {
+    display: block;
+
+    font-size: 30px;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+
+    background: linear-gradient(90deg, var(--c-accent), var(--c-green));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  &__label {
+    font-size: 13px;
+    color: var(--c-muted);
+  }
+}
+
+// --- Сітка команд ---
+.tour-teams {
+  display: grid;
+  gap: $space-md;
+  grid-template-columns: 1fr;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  // Проміжний діапазон (планшет): рівно 2 колонки
+  @include media-between($bp-tablet, $bp-between-max) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  // Широкий десктоп: 4 колонки (вимога)
+  @include media-min($bp-wide) {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.team-card {
+  position: relative;
+
+  padding: $space-lg $space-md;
+
+  background-color: var(--c-surface);
+  border: 1px solid var(--c-border);
+  border-radius: $radius;
+  box-shadow: $shadow-card-dark;
+  text-align: center;
+
+  transition: transform 200ms, border-color 200ms, box-shadow 200ms;
+
+  &:hover {
+    transform: translateY(-4px);
+    border-color: rgba(139, 92, 246, 0.5);
+  }
+
+  // Логотип-ініціали команди
+  &__logo {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 64px;
+    height: 64px;
+
+    margin-bottom: $space-md;
+
+    font-size: 20px;
+    font-weight: 800;
+    color: #ffffff;
+
+    border-radius: 18px;
+    box-shadow: inset 0 0 0 3px rgba(255, 255, 255, 0.18);
+  }
+
+  &__name {
+    margin: 0 0 2px;
+    font-size: 17px;
+  }
+
+  &__wins {
+    margin: 0 0 $space-md;
+    font-size: 13px;
+    color: var(--c-muted);
+  }
+
+  &__players {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+
+    padding-top: $space-md;
+
+    margin-bottom: $space-md;
+
+    font-size: 13px;
+    color: var(--c-muted);
+
+    border-top: 1px solid var(--c-border);
+  }
+
+  &__players span {
+    color: var(--c-text);
+  }
+
+  &__link {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 100%;
+    min-height: 40px;
+
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--c-accent);
+
+    background: var(--c-accent-soft);
+    border-radius: 10px;
+    text-decoration: none;
+
+    transition: background-color 200ms, color 200ms, transform 150ms;
+
+    &:hover {
+      color: #ffffff;
+      background-color: var(--c-accent);
+    }
+
+    &:active {
+      transform: translateY(1px);
+    }
+
+    &:focus-visible {
+      outline: 3px solid var(--c-gold);
+      outline-offset: 2px;
+    }
+
+    @include media-min($bp-tablet) {
+      width: auto;
+      padding: 8px 14px;
+    }
+  }
+
+  // Фаворит турніру (вимога: модифікатор)
+  &--featured {
+    border-color: var(--c-green);
+    box-shadow: 0 0 0 1px var(--c-green), $shadow-card-dark-hover;
+
+    .team-card__flag {
+      display: inline-flex;
+    }
+  }
+
+  &__flag {
+    position: absolute;
+    top: -$space-sm;
+    left: 50%;
+    transform: translateX(-50%);
+
+    display: none;
+    align-items: center;
+
+    padding: 4px 12px;
+
+    font-size: 11px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #052e23;
+
+    background: var(--c-green);
+    border-radius: 999px;
+  }
+}
+
+// --- Розклад матчів ---
+.tour-matches {
+  display: flex;
+  flex-direction: column;
+  gap: $space-md;
+
+  @include media-min($bp-tablet) {
+    gap: $space-md;
+  }
+}
+
+.match-row {
+  display: flex;
+  flex-direction: column;
+  gap: $space-sm;
+
+  padding: $space-md $space-lg;
+
+  background-color: var(--c-surface);
+  border: 1px solid var(--c-border);
+  border-radius: $radius;
+
+  transition: border-color 200ms;
+
+  &:hover {
+    border-color: rgba(139, 92, 246, 0.45);
+  }
+
+  // Планшет: все в один ряд (вимога)
+  @include media-min($bp-tablet) {
+    flex-direction: row;
+    align-items: center;
+    gap: $space-lg;
+  }
+
+  &__date {
+    flex: none;
+
+    align-self: flex-start;
+
+    @include media-min($bp-tablet) {
+      align-self: center;
+    }
+  }
+
+  &__teams {
+    display: flex;
+    align-items: center;
+    gap: $space-sm;
+
+    margin: 0;
+    font-weight: 700;
+
+    @include media-min($bp-tablet) {
+      flex-grow: 1;
+    }
+  }
+
+  &__teams i {
+    font-style: normal;
+    font-size: 12px;
+    font-weight: 800;
+    color: var(--c-muted);
+  }
+
+  &__time {
+    font-size: 13px;
+    color: var(--c-muted);
+
+    @include media-min($bp-tablet) {
+      flex: none;
+    }
+  }
+}
+
+// --- Футер ---
+.tour-footer {
+  display: flex;
+  flex-direction: column;
+  gap: $space-md;
+
+  padding: $space-lg;
+
+  margin-top: $space-xl;
+
+  font-size: 14px;
+  color: var(--c-muted);
+
+  background-color: var(--c-surface);
+  border: 1px solid var(--c-border);
+  border-radius: $radius;
+
+  text-align: center;
+
+  @include media-min($bp-wide) {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    text-align: left;
+  }
+
+  strong {
+    color: var(--c-text);
+  }
+}

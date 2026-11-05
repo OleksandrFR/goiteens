@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ДЗ рівень 2 — Адаптивний каталог курсів</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="./css/main.css">
+</head>
+<body>
+  <main class="page">
+
+    <!-- Топбар: мобільний — колонка; планшет — ряд -->
+    <header class="topbar">
+      <h2 class="topbar__logo">
+        <span class="topbar__logo-mark" aria-hidden="true">G</span>
+        GoITeens
+      </h2>
+      <nav class="topbar__nav">
+        <a class="topbar__link" href="#">Курси</a>
+        <a class="topbar__link" href="#">Розклад</a>
+        <a class="topbar__link" href="#">Про нас</a>
+      </nav>
+    </header>
+
+    <!-- Герой-смуга; заголовок анімується один раз при завантаженні -->
+    <section class="catalog-hero">
+      <h1 class="catalog-hero__title">Каталог курсів</h1>
+      <p class="catalog-hero__text">
+        Обери свою програму навчання — від перших блоків до фінального
+        проєкту в портфоліо.
+      </p>
+    </section>
+
+    <!--
+      Сітка: 1 колонка (до 768px) → 2 (від 768px) → 3 (від 1200px).
+      Компонуйність: адаптивні стилі всередині .catalog.
+    -->
+    <section class="catalog">
+      <article class="course-card course-card--popular">
+        <div class="course-card__media">
+          <!-- Плашка популярного курсу поверх зображення -->
+          <span class="course-card__badge">★ Популярний</span>
+          <img
+            src="https://picsum.photos/seed/course-frontend/600/400"
+            srcset="https://picsum.photos/seed/course-frontend/600/400 1x,
+                    https://picsum.photos/seed/course-frontend/1200/800 2x"
+            alt="Обкладинка курсу Frontend"
+            loading="lazy"
+            decoding="async">
+        </div>
+
+        <div class="course-card__content">
+          <h3 class="course-card__name">Frontend Junior</h3>
+          <div class="course-card__meta">
+            <span class="course-card__tag course-card__tag--level">Рівень: початковий</span>
+            <span class="course-card__tag course-card__tag--time">2 роки</span>
+          </div>
+          <p class="course-card__desc">
+            HTML, CSS, SASS, Git, адаптивна верстка. Фінальні проєкти —
+            готове портфоліо.
+          </p>
+          <a href="#" class="btn course-card__btn">Дізнатися більше</a>
+        </div>
+      </article>
+
+      <article class="course-card">
+        <div class="course-card__media">
+          <img
+            src="https://picsum.photos/seed/course-python/600/400"
+            srcset="https://picsum.photos/seed/course-python/600/400 1x,
+                    https://picsum.photos/seed/course-python/1200/800 2x"
+            alt="Обкладинка курсу Python"
+            loading="lazy"
+            decoding="async">
+        </div>
+
+        <div class="course-card__content">
+          <h3 class="course-card__name">Python Start</h3>
+          <div class="course-card__meta">
+            <span class="course-card__tag course-card__tag--level">Рівень: початковий</span>
+            <span class="course-card__tag course-card__tag--time">1 рік</span>
+          </div>
+          <p class="course-card__desc">
+            Синтаксис Python, логічні задачі, перший бот у Telegram.
+          </p>
+          <a href="#" class="btn course-card__btn">Дізнатися більше</a>
+        </div>
+      </article>
+
+      <article class="course-card">
+        <div class="course-card__media">
+          <img
+            src="https://picsum.photos/seed/course-game/600/400"
+            srcset="https://picsum.photos/seed/course-game/600/400 1x,
+                    https://picsum.photos/seed/course-game/1200/800 2x"
+            alt="Обкладинка курсу Game Design"
+            loading="lazy"
+            decoding="async">
+        </div>
+
+        <div class="course-card__content">
+          <h3 class="course-card__name">Game Design</h3>
+          <div class="course-card__meta">
+            <span class="course-card__tag course-card__tag--level">Продовження</span>
+            <span class="course-card__tag course-card__tag--time">1.5 роки</span>
+          </div>
+          <p class="course-card__desc">
+            Ігри на рушії Unity, логіка рівнів, власний ігровий проєкт.
+          </p>
+          <a href="#" class="btn course-card__btn">Дізнатися більше</a>
+        </div>
+      </article>
+    </section>
+
+    <!--
+      ДОДАТКОВО: той самий каталог через auto-fit.
+      Колонки додаються самі, коли вистачає місця, — без breakpoint'ів.
+      Мінус: немає прямого контролю «рівно 3 колонки від 1200px».
+    -->
+    <section class="section" style="margin-top: 48px">
+      <h2 class="section__heading">Той самий каталог через auto-fit</h2>
+
+      <section class="catalog catalog--auto-fit">
+        <article class="course-card">
+          <div class="course-card__media">
+            <img src="https://picsum.photos/seed/af1/600/400" alt="Обкладинка курсу Scratch" loading="lazy" decoding="async">
+          </div>
+          <div class="course-card__content">
+            <h3 class="course-card__name">Scratch Kids</h3>
+            <p class="course-card__desc">Перші кроки у програмуванні.</p>
+            <a href="#" class="btn course-card__btn">Дізнатися більше</a>
+          </div>
+        </article>
+
+        <article class="course-card">
+          <div class="course-card__media">
+            <img src="https://picsum.photos/seed/af2/600/400" alt="Обкладинка курсу Unity" loading="lazy" decoding="async">
+          </div>
+          <div class="course-card__content">
+            <h3 class="course-card__name">Unity Junior</h3>
+            <p class="course-card__desc">3D-ігри на рушії Unity.</p>
+            <a href="#" class="btn course-card__btn">Дізнатися більше</a>
+          </div>
+        </article>
+
+        <article class="course-card">
+          <div class="course-card__media">
+            <img src="https://picsum.photos/seed/af3/600/400" alt="Обкладинка курсу UX/UI" loading="lazy" decoding="async">
+          </div>
+          <div class="course-card__content">
+            <h3 class="course-card__name">UX/UI Young</h3>
+            <p class="course-card__desc">Макети та прототипи у Figma.</p>
+            <a href="#" class="btn course-card__btn">Дізнатися більше</a>
+          </div>
+        </article>
+      </section>
+    </section>
+
+  </main>
+</body>
+</html>

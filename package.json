@@ -1,0 +1,14 @@
+{
+  "name": "lesson-73-adaptive",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "type": "commonjs",
+  "devDependencies": {
+    "sass": "^1.107.1"
+  }
+}

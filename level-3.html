@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ДЗ рівень 3 — Кіберспортивний турнір</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="./css/main.css">
+</head>
+<!-- Темна кіберспортивна тема -->
+<body class="theme-dark">
+  <main class="page">
+
+    <!-- Хедер: мобільний — колонка (кнопка на всю ширину);
+         планшет — ряд -->
+    <header class="tour-header">
+      <h2 class="tour-header__logo">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M13 2 4 14h6v8l9-12h-6V2z"/>
+        </svg>
+        Grid Battle Arena
+      </h2>
+      <nav class="tour-header__nav">
+        <a class="tour-header__link" href="#promo">Про турнір</a>
+        <a class="tour-header__link" href="#teams">Команди</a>
+        <a class="tour-header__link" href="#matches">Розклад</a>
+      </nav>
+      <a class="btn tour-header__btn" href="#">Заявка команди</a>
+    </header>
+
+    <!-- Промоблок: мобільний — колонка, планшет — дві колонки -->
+    <section class="tour-promo" id="promo">
+      <div class="tour-promo__media">
+        <span class="tour-promo__live"><i></i>LIVE</span>
+        <img
+          src="assets/stage-900.png"
+          srcset="assets/stage-900.png 1x,
+                  assets/stage-1800.png 2x"
+          alt="Сцена кіберспортивного турніру: прожектори та натовп"
+          loading="eager"
+          decoding="async"
+          fetchpriority="high">
+      </div>
+
+      <div>
+        <h1 class="tour-promo__title">Grid Battle <em>Arena 2026</em></h1>
+
+        <p class="tour-promo__text">
+          Найбільший шкільний кіберспортивний турнір сезону.
+          Шістнадцять команд, плей-офф у матчах BO3, фінал —
+          у прямому ефірі.
+        </p>
+
+        <div class="tour-promo__chips">
+          <span class="chip">🏆 Фонд 50 000 GRT</span>
+          <span class="chip">🌐 Онлайн</span>
+          <span class="chip">📅 12–13 грудня</span>
+        </div>
+
+        <a href="#" class="btn">Дивитися трансляцію</a>
+      </div>
+    </section>
+
+    <!-- Статистика: колонка мобільно → один ряд від 768px -->
+    <section class="section" aria-label="Статистика турніру">
+      <div class="tour-stats">
+        <div class="stats-card">
+          <span class="stats-card__number">16</span>
+          <span class="stats-card__label">команд учасниць</span>
+        </div>
+        <div class="stats-card">
+          <span class="stats-card__number">64</span>
+          <span class="stats-card__label">матчі плей-офф</span>
+        </div>
+        <div class="stats-card">
+          <span class="stats-card__number">96</span>
+          <span class="stats-card__label">гравців</span>
+        </div>
+        <div class="stats-card">
+          <span class="stats-card__number">50k</span>
+          <span class="stats-card__label">призовий фонд</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Команди: 1 → 2 (планшет) → 4 колонки (від 1280px) -->
+    <section class="section" id="teams">
+      <h2 class="section__heading">Команди</h2>
+
+      <ul class="tour-teams">
+        <!-- Фаворит — модифікатор --featured -->
+        <li class="team-card team-card--featured">
+          <span class="team-card__flag">Фаворит</span>
+          <span class="team-card__logo" style="background: linear-gradient(135deg, #a855f7, #6d28d9)">CO</span>
+          <h3 class="team-card__name">Cyber Owls</h3>
+          <p class="team-card__wins">Перемог: 12 · півфінал</p>
+          <div class="team-card__players">
+            <span>капітан — Ая</span>
+            <span>снайпер — Мета</span>
+          </div>
+          <a class="team-card__link" href="#">Анкета команди</a>
+        </li>
+
+        <li class="team-card">
+          <span class="team-card__logo" style="background: linear-gradient(135deg, #60a5fa, #2563eb)">PW</span>
+          <h3 class="team-card__name">Pixel Wolves</h3>
+          <p class="team-card__wins">Перемог: 9 · чвертьфінал</p>
+          <div class="team-card__players">
+            <span>капітан — Ірис</span>
+            <span>підтримка — Кай</span>
+          </div>
+          <a class="team-card__link" href="#">Анкета команди</a>
+        </li>
+
+        <li class="team-card">
+          <span class="team-card__logo" style="background: linear-gradient(135deg, #fb923c, #ea580c)">NT</span>
+          <h3 class="team-card__name">Neon Tigers</h3>
+          <p class="team-card__wins">Перемог: 7 · група B</p>
+          <div class="team-card__players">
+            <span>капітан — Лана</span>
+            <span>снайпер — Джо</span>
+          </div>
+          <a class="team-card__link" href="#">Анкета команди</a>
+        </li>
+
+        <li class="team-card">
+          <span class="team-card__logo" style="background: linear-gradient(135deg, #2dd4a7, #0d9488)">GC</span>
+          <h3 class="team-card__name">Ghost Coders</h3>
+          <p class="team-card__wins">Перемог: 5 · група A</p>
+          <div class="team-card__players">
+            <span>капітан — Ніка</span>
+            <span>підтримка — Тор</span>
+          </div>
+          <a class="team-card__link" href="#">Анкета команди</a>
+        </li>
+      </ul>
+    </section>
+
+    <!-- Розклад матчів: стовпчик мобільно, ряд від планшета -->
+    <section class="section" id="matches">
+      <h2 class="section__heading">Розклад матчів</h2>
+
+      <div class="tour-matches">
+        <div class="match-row">
+          <span class="chip match-row__date">12 грудня</span>
+          <p class="match-row__teams">Cyber Owls <i>vs</i> Neon Tigers</p>
+          <span class="match-row__time">початок о 14:00</span>
+        </div>
+
+        <div class="match-row">
+          <span class="chip match-row__date">12 грудня</span>
+          <p class="match-row__teams">Pixel Wolves <i>vs</i> Ghost Coders</p>
+          <span class="match-row__time">початок о 16:30</span>
+        </div>
+
+        <div class="match-row">
+          <span class="chip match-row__date">13 грудня</span>
+          <p class="match-row__teams">Фінал <i>BO3</i> переможці півфіналів</p>
+          <span class="match-row__time">початок о 19:00</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Футер: колонка мобільно, ряд від 1280px -->
+    <footer class="tour-footer">
+      <span><strong>Grid Battle Arena 2026</strong></span>
+      <span>Онлайн · Україна</span>
+      <span>Партнери: GoITeens Arena, Pixel Cup</span>
+    </footer>
+
+  </main>
+</body>
+</html>

@@ -1,0 +1,32 @@
+// ============================================================
+// _variables.scss — змінні проєкту
+// Breakpoints винесені у змінні (вимога ДЗ).
+// Кольори — CSS-змінні (custom properties), щоб теми
+// (світла/темна) перемикалися простим класом на <body>.
+// ============================================================
+
+// --- Breakpoints (mobile-first) ---
+$bp-tablet: 768px;    // планшет
+$bp-desktop: 1200px;  // десктоп (каталог)
+$bp-wide: 1280px;     // широкий десктоп (турнір)
+
+// --- Проміжний діапазон (планшетні стилі турніру) ---
+$bp-between-max: 1279px;
+
+// --- Сітка відступів ---
+$space-unit: 8px;
+$space-sm: $space-unit;        // 8
+$space-md: $space-unit * 2;    // 16
+$space-lg: $space-unit * 3;    // 24
+$space-xl: $space-unit * 4;    // 32
+$space-xxl: $space-unit * 6;   // 48
+
+// --- Радіуси, тіні, шрифт ---
+$radius: 14px;
+$radius-lg: 20px;
+$container-max: 1200px;
+$font-main: "Manrope", "Segoe UI", Arial, sans-serif;
+
+$shadow-card: 0 10px 30px rgba(15, 23, 42, 0.08);
+$shadow-card-dark: 0 14px 34px rgba(3, 8, 20, 0.45);
+$shadow-card-dark-hover: 0 18px 40px rgba(3, 8, 20, 0.55);

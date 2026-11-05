@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360">
+  <!-- Абстрактна «кібер-арена»: темний фон, неонове світіння,
+       перспективна сітка-підлога, кілька екранів -->
+  <defs>
+    <radialGradient id="glow-violet" cx="0.72" cy="0.12" r="0.9">
+      <stop offset="0" stop-color="#8b5cf6" stop-opacity="0.55"/>
+      <stop offset="1" stop-color="#8b5cf6" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glow-teal" cx="0.1" cy="0.85" r="0.7">
+      <stop offset="0" stop-color="#2dd4a7" stop-opacity="0.4"/>
+      <stop offset="1" stop-color="#2dd4a7" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="floor" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0d1530"/>
+      <stop offset="1" stop-color="#070b18"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Фон -->
+  <rect x="0" y="0" width="640" height="360" fill="url(#floor)"></rect>
+  <rect x="0" y="0" width="640" height="360" fill="url(#glow-violet)"></rect>
+  <rect x="0" y="0" width="640" height="360" fill="url(#glow-teal)"></rect>
+
+  <!-- Горизонт -->
+  <line x1="0" y1="205" x2="640" y2="205" stroke="rgba(148,163,196,0.25)" stroke-width="1"></line>
+
+  <!-- Підлога: перспективна сітка -->
+  <g stroke="#8b5cf6" stroke-opacity="0.28" stroke-width="1">
+    <line x1="240" y1="360" x2="205" y2="205"></line>
+    <line x1="320" y1="360" x2="320" y2="205"></line>
+    <line x1="400" y1="360" x2="435" y2="205"></line>
+    <line x1="480" y1="360" x2="540" y2="205"></line>
+    <line x1="560" y1="360" x2="640" y2="205"></line>
+    <line x1="160" y1="360" x2="100" y2="205"></line>
+    <line x1="80" y1="360" x2="0" y2="205"></line>
+
+    <path d="M0 225 H640"></path>
+    <path d="M0 250 H640"></path>
+    <path d="M0 282 H640"></path>
+    <path d="M0 322 H640"></path>
+  </g>
+
+  <!-- «Екрани» над сценою -->
+  <g>
+    <rect x="120" y="60" width="150" height="90" rx="8" fill="#121a2f" stroke="#8b5cf6" stroke-opacity="0.5" stroke-width="1.5"></rect>
+    <rect x="134" y="74" width="122" height="52" rx="4" fill="url(#glow-violet)" opacity="0.8"></rect>
+
+    <rect x="380" y="45" width="190" height="110" rx="8" fill="#121a2f" stroke="#2dd4a7" stroke-opacity="0.45" stroke-width="1.5"></rect>
+    <rect x="396" y="61" width="158" height="68" rx="4" fill="url(#glow-teal)" opacity="0.85"></rect>
+
+    <!-- Дрібні HUD-елементи -->
+    <circle cx="70" cy="70" r="16" fill="none" stroke="#2dd4a7" stroke-opacity="0.5" stroke-width="2"></circle>
+    <path d="M70 54 A16 16 0 0 1 86 70" fill="none" stroke="#2dd4a7" stroke-width="3" stroke-linecap="round"></path>
+    <circle cx="600" cy="290" r="10" fill="none" stroke="#8b5cf6" stroke-opacity="0.6" stroke-width="2"></circle>
+  </g>
+
+  <!-- Блиск: тонкі лінії світла -->
+  <g stroke-linecap="round">
+    <line x1="330" y1="230" x2="330" y2="205" stroke="#e9d5ff" stroke-opacity="0.7" stroke-width="3"></line>
+    <line x1="250" y1="248" x2="250" y2="205" stroke="#e9d5ff" stroke-opacity="0.4" stroke-width="2"></line>
+    <line x1="420" y1="252" x2="420" y2="205" stroke="#e9d5ff" stroke-opacity="0.4" stroke-width="2"></line>
+  </g>
+</svg>

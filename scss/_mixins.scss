@@ -1,0 +1,20 @@
+// ============================================================
+// _mixins.scss — універсальні міксіни для адаптивності
+// ============================================================
+@use "variables" as *;
+
+// Універсальний міксін: mobile-first, min-width
+// Використання: @include media-min($bp-tablet) { ... }
+@mixin media-min($width) {
+  @media (min-width: $width) {
+    @content;
+  }
+}
+
+// Проміжний діапазон (додатковий челендж ДЗ):
+// для стилів, які мають працювати лише на планшеті
+@mixin media-between($min, $max) {
+  @media (min-width: $min) and (max-width: $max) {
+    @content;
+  }
+}
